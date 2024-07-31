@@ -1,6 +1,13 @@
 # NetFlix GPT
   -Create React App
   -Configured Tailwind
+  -Header
+  -Routing
+  -Login Form
+  -Sign Form
+  -Form Validation
+  -UseRef Hook
+
 
 
 
