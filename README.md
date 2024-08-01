@@ -7,6 +7,11 @@
   -Sign Form
   -Form Validation
   -UseRef Hook
+  -firebase setup 
+  -Deploying our app to production
+  -create signUp user account
+  -
+
 
 
 

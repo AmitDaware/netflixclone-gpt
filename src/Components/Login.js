@@ -3,6 +3,11 @@ import Header from "./Header";
 import { NET_BG } from "../Utils/constants";
 import { Link } from "react-router-dom";
 import { checkValidData } from "../Utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../Utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -11,11 +16,52 @@ const Login = () => {
   const password = useRef(null);
   const handleButtonClick = () => {
     // validate the form data
-   console.log(email.current.value)
-   console.log(password.current.value)
     const message = checkValidData(email.current.value, password.current.value);
-    setErrorMessage(message)
-};
+
+    setErrorMessage(message);
+
+    //signIn signUp Logic OR AUTHENTICATION 
+    if (message) return;
+    if (!isSignInForm) {
+      // signUp Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          // console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          setErrorMessage(errorCode + "-" + errorMessage);
+          // ..
+        });
+    } else {
+      //signIn Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
+    //Now we have to implement one more thing if the user sign up or if the user signIn then we get a USER OBJECT (in if else) and we will have to keep this user object with us because i can need this user objet anywhere in my app, so what we will do is as soon as the user signIn or signUp we will just add all that data to our redux store and navigate our user to the BROWSE page
+  };
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
@@ -26,9 +72,12 @@ const Login = () => {
       <div className="absolute w-full h-full object-cover">
         <img src={NET_BG} alt="BackgroundImage" />
       </div>
-      <form 
-      onSubmit={(e)=>{e.preventDefault()}}
-      className=" absolute p-12 bg-black my-24 mx-auto right-0 left-0 text-white w-3/12 flex flex-col py-4 bg-opacity-55 rounded">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className=" absolute p-12 bg-black my-24 mx-auto right-0 left-0 text-white w-3/12 flex flex-col py-4 bg-opacity-55 rounded"
+      >
         <h1 className="font-bold text-3xl">
           {isSignInForm ? "SignIn" : "SignUp"}
         </h1>
@@ -54,7 +103,7 @@ const Login = () => {
           className="p-3 my-2 bg-gray-700 rounded"
         />
 
-<p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p>
+        <p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p>
 
         <button
           className="bg-red-600 py-3 my-6 rounded font-bold"
