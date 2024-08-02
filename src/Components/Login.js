@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { NET_BG } from "../Utils/constants";
-import { Link, useNavigate } from "react-router-dom";
+import { NET_BG, USER_AVATAR } from "../Utils/constants";
+import { Link } from "react-router-dom";
 import { checkValidData } from "../Utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -18,11 +18,7 @@ const Login = () => {
   const nameRef = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-  const dispatch = useDispatch()
-
-  const navigate = useNavigate();
-  //NOTE : useNavigate hook should always used on the children level and not on the parent level..
-  // as we want to our user to go to the browser page after he signing In we use useNavigate hook which is given by react router dom
+  const dispatch = useDispatch();
 
   const handleButtonClick = () => {
     // validate the form data
@@ -45,10 +41,10 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: nameRef.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/88260530?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
-              const{uid, email, displayName, photoURL} = auth.currentUser;//here if we do by user then it will show null because it isn't got updated yet, 
+              const { uid, email, displayName, photoURL } = auth.currentUser; //here if we do by user then it will show null because it isn't got updated yet,
               dispatch(
                 addUser({
                   uid: uid,
@@ -58,15 +54,12 @@ const Login = () => {
                 })
               );
               // Profile updated!
-              navigate("/browser")
             })
             .catch((error) => {
               // An error occurred
               setErrorMessage(errorMessage);
             });
           // console.log(user);
-
-          navigate("/Browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -84,8 +77,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/Browse");
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -116,7 +108,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
-          ref={nameRef} 
+            ref={nameRef}
             type="text"
             placeholder="FullName"
             className="p-3 my-2 bg-gray-700 rounded"
