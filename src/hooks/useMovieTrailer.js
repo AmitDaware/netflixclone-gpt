@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { API_OPTIONS } from "../Utils/constants";
 import { addTrailerVideo } from "../Utils/moviesSlice";
@@ -14,7 +15,7 @@ const useMovieTrailer = (movieId) => {
       API_OPTIONS
     );
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     const filterData = json.results.filter((video) => video.type === "Trailer");
     const trailer = filterData.length ? filterData[1] : json.results[0];
 
