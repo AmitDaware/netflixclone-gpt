@@ -15,21 +15,38 @@
 -Created redux store with userSlice.
 -Implemented signOut
 -Update Profile
--BugFix : SignUp use displayName and profile Picture Update.
--BugFix :if the user is not logged in Redirect /browse to Login Page and Vice-Versa.
+-BugFix : SignUp use displayName and profile Picture
+ Update.
+-BugFix :if the user is not logged in Redirect /browse
+ to Login Page and Vice-Versa.
 -Unsubscribed to the onAuthStateChanged callback
 -Add Hardcoded values to the constants file.
--Registered on TMDB website for movie api's && created app over there && got access token.
+-Registered on TMDB website for movie api's &&
+ created  app over there && got access token.
 -Get Data from TMDB for now Playing movies list.
 -Custom Hook for nowPlayingMovies
 -created movesSlice
 -Update Store with Movies Data
-Planning For MainContainer and secondary Container
+ Planning For MainContainer and secondary Container
 -Fetch data for trailer video 
 -Updated store with Trailer video Data
 -Embedded the youtube video and make it auto play and
-mute
+ mute.
 -Tailwind classed to make main container look awesome
+-Built Secondary Component.
+-Built Movie List Component.
+-Built Movies Card Component.
+-Found Out TMDB Image CDN.
+-Made the Browse Page Look amazing with Tailwind CSS.
+-Created Some Custom Hooks like useTopRatedMovies,
+ UseUpcomingMovies, UsePopularMovies, UseNowPlayingMovies, useMovieTrailer,
+-GPT search Page.
+-GPT search Bar
+-Multi Language Feature in out app.
+-Integrate GPT API's(get Open AI key).
+
+
+
 
 
 
